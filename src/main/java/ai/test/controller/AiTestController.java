@@ -11,11 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 public class AiTestController {
 
 
+    @RequestMapping("/")
+    public String main() {
+        System.out.println("test1111");
+        return "WEB-INF/jsp/ai/aiTest";
+    }
+
     @RequestMapping("/ai/index.do")
-    public void index(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String index(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("test");
-        System.out.println("test");
-        System.out.println("test");
-        System.out.println("test");
+        return "ai/aiTest";
     }
 }
