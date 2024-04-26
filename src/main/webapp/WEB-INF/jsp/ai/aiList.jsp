@@ -10,6 +10,11 @@
 </head>
 <body>
 
-<h1>hello world!!</h1>
+<c:forEach var="item" items="${lsit}" varStatus="status">
+    <p>${item.BOOK_NM}</p>
+    <p>${item.BOOK_CONT}</p>
+    <p>${item.BOOK_PUBLS}</p>
+</c:forEach>
+
 </body>
 </html>

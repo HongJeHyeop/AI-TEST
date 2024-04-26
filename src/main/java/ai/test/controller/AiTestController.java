@@ -1,5 +1,7 @@
 package ai.test.controller;
 
+import ai.test.service.AiTestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class AiTestController {
+
+    @Autowired
+    AiTestService service;
 
 
     @RequestMapping("/")
@@ -20,6 +25,6 @@ public class AiTestController {
     @RequestMapping("/ai/index.do")
     public String index(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("test");
-        return "ai/aiTest";
+        return service.list(model, request);
     }
 }
