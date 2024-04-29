@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -9,11 +10,12 @@
     <title>Title</title>
 </head>
 <body>
-
-<c:forEach var="item" items="${lsit}" varStatus="status">
-    <p>${item.BOOK_NM}</p>
-    <p>${item.BOOK_CONT}</p>
-    <p>${item.BOOK_PUBLS}</p>
+<%--<c:out value="${list}"/>--%>
+<c:forEach var="item" items="${list}" varStatus="status">
+    <p>${item.bookNm}</p>
+    <p>${item.bookCont}</p>
+    <p>${item.bookPubls}</p>
+    <p>${item.crtDtTxt}</p>
 </c:forEach>
 
 </body>

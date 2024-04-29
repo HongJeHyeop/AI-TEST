@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed May 11 15:49:38 KST 2016-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ai.test.mapper.AiMapper">
-    <select id="selectList" parameterType="Map" resultType="HashMap">
-        select * from BOOK
+<mapper namespace="AiMapper">
+    <select id="selectList" parameterType="Map" resultType="ai">
+        select
+            BOOK_ID
+            , BOOK_NM
+            , BOOK_CONT
+            , BOOK_PUBLS
+            , CRT_DT
+            , TO_CHAR(CRT_DT, 'YYYY-MM-DD') AS CRT_DT_TXT
+        from BOOK
     </select>
 </mapper>

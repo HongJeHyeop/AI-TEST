@@ -5,13 +5,31 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 아래 태그를 통해 프로퍼티 로드 -->
-    <context:property-placeholder location="classpath:application.properties"/>
-    <beans profile="postgres">
-        <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-            <property name="driverClass" value="${Globals.postgres.DriverClassName}"/>
-            <property name="url" value="${Globals.postgres.Url}" />
-            <property name="username" value="${Globals.postgres.UserName}"/>
-            <property name="password" value="${Globals.postgres.Password}"/>
-        </bean>
-    </beans>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+        <property name="locations" value="classpath:/database.properties" />
+
+        <property name="fileEncoding" value="UTF-8" />
+
+    </bean>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${Globals.postgres.DriverClassName}"/>
+        <property name="url" value="${Globals.postgres.Url}" />
+        <property name="username" value="${Globals.postgres.UserName}"/>
+        <property name="password" value="${Globals.postgres.Password}"/>
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+        <property name="mapperLocations" value="classpath*:mapper/**/*.xml"/>
+        <property name="configLocation" value="classpath:/config/mapper-config.xml" />
+
+        <property name="dataSource" ref="dataSource" />
+
+    </bean>
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+
+    </bean>
+
 </beans>
