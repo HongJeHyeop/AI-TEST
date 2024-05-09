@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AiMapper">
-    <select id="selectList" parameterType="Map" resultType="ai">
+    <select id="selectList" parameterType="ai" resultType="ai">
         select
             BOOK_ID
             , BOOK_NM
@@ -11,5 +11,58 @@
             , CRT_DT
             , TO_CHAR(CRT_DT, 'YYYY-MM-DD') AS CRT_DT_TXT
         from BOOK
+        where DEL_YN = 'N'
+        <if test="embedding != null">
+            <![CDATA[
+            order by EMBEDDING <=> #{embedding}
+            ]]>
+        limit 3
+        </if>
     </select>
+
+
+    <select id="write" parameterType="Integer" resultType="ai">
+        select
+            BOOK_ID
+             , BOOK_NM
+             , BOOK_CONT
+             , BOOK_PUBLS
+             , CRT_DT
+             , TO_CHAR(CRT_DT, 'YYYY-MM-DD') AS CRT_DT_TXT
+        from BOOK
+        where DEL_YN = 'N'
+            and BOOK_ID = #{bookId}
+    </select>
+
+    <insert id="insert" parameterType="ai">
+        insert into BOOK (
+                          BOOK_NM,
+                          BOOK_CONT,
+                          BOOK_PUBLS,
+                          EMBEDDING,
+                          DEL_YN,
+                          CRT_DT
+        ) values (
+                  #{bookNm},
+                  #{bookCont},
+                  #{bookPubls},
+                  #{embedding},
+                  'N',
+                  NOW()
+                         )
+    </insert>
+
+    <update id="update" parameterType="ai">
+        update BOOK
+        set BOOK_NM    = #{bookNm},
+            BOOK_CONT  = #{bookCont},
+            BOOK_PUBLS = #{bookPubls}
+        where BOOK_ID = #{bookId}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        update BOOK
+        set DEL_YN = 'Y'
+        where BOOK_ID = #{bookId}
+    </delete>
 </mapper>

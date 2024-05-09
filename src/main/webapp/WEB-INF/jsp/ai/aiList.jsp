@@ -7,7 +7,61 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Title</title>
+
+    <script>
+        function fnDelete(id) {
+            let data = {
+                bookId :id,
+                status : 'D'
+            }
+
+            $.ajax({
+                url: "/ai/delete.do/" + id +"?status=D",
+                type: "post",
+                contentType: "application/json; charset=UTF-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data.result == 'success') {
+                        alert(data.message);
+                        location.href = '/';
+                    } else {
+                        alert("삭제실패!!")
+                    }
+                },
+                error: function (req, statue, err) {
+                    console.log(err)
+                }
+            })
+
+            }
+            function fnUpdate(id) {
+                location.href = '/ai/write.do?id=' + id;
+
+            }
+            function fnSearch() {
+                let txt = $("#searchEmbed").val();
+                $.ajax({
+                    url: "https://api.openai.com/v1/embeddings",
+                    type:"post",
+                    data: {
+                      input: "test",
+                      model: "text-embedding-3-small"
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", "Bearer sk-proj-nPp3PdTtVfM7SpucWtBNT3BlbkFJM8chhSSQUy2YiI50qa19");
+                        xhr.setRequestHeader("Content-Type", "application/json");
+                    },
+                    success:function (data){
+                        console.log(data.data.data[0].embedding)
+                    },
+                    error:function (err) {
+                        console.log(err)
+                    }
+                })
+            }
+    </script>
 </head>
 <body>
 <%--<c:out value="${list}"/>--%>
@@ -23,7 +77,11 @@
         <h1>Embedding Ai Test</h1>
     </div>
     <div class="search-div">
-
+        <label for="searchEmbed">검색어입력</label>
+        <input type="text" id="searchEmbed" name="searchEmbed">
+        <div class="btn-wrap">
+            <button onclick="fnSearch()">검색</button>
+        </div>
     </div>
     <div class="container">
        <table>
@@ -36,10 +94,19 @@
            <tr>
                <td>${item.bookNm}</td>
                <td>${item.bookPubls}</td>
+               <td>
+                   <button onclick="fnUpdate(${item.bookId})">수정</button>
+               </td>
+               <td>
+                   <button onclick="fnDelete(${item.bookId})">삭제</button>
+               </td>
            </tr>
            </c:forEach>
            </tbody>
        </table>
+    </div>
+    <div class="btn-wrap">
+        <button onclick="location.href='/ai/write.do'">작성하기</button>
     </div>
 </div>
 </body>

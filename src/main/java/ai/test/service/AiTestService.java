@@ -10,7 +10,13 @@ import java.util.Map;
 
 public interface AiTestService {
 
-    public List<AiVo> list() throws Exception;
+    public List<AiVo> list(AiVo aiVo) throws Exception;
 
-    public Map<String, Object> insert(ModelMap model, HttpServletRequest request, AiDto aiDto) throws Exception;
+    public AiVo write(int bookId) throws Exception;
+
+    public Map<String, Object> insert(AiVo aiVo) throws Exception;
+
+    public Map<String, Object> update(AiVo aiVo) throws Exception;
+
+    public Map<String, Object> delete(int bookId) throws Exception;
 }

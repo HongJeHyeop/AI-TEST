@@ -12,13 +12,10 @@ public class AiDto {
 
     private String crtDtTxt;
 
-    public AiDto(int bookId, String bookNm, String bookCont, String bookPubls, String delYn, String crtDt) {
-        this.bookId = bookId;
+    public AiDto( String bookNm, String bookCont, String bookPubls) {
         this.bookNm = bookNm;
         this.bookCont = bookCont;
         this.bookPubls = bookPubls;
-        this.delYn = delYn;
-        this.crtDt = crtDt;
     }
 
     public int getBookId() {
@@ -75,5 +72,18 @@ public class AiDto {
 
     public void setCrtDtTxt(String crtDtTxt) {
         this.crtDtTxt = crtDtTxt;
+    }
+
+    @Override
+    public String toString() {
+        return "AiDto{" +
+                "bookId=" + bookId +
+                ", bookNm='" + bookNm + '\'' +
+                ", bookCont='" + bookCont + '\'' +
+                ", bookPubls='" + bookPubls + '\'' +
+                ", delYn='" + delYn + '\'' +
+                ", crtDt='" + crtDt + '\'' +
+                ", crtDtTxt='" + crtDtTxt + '\'' +
+                '}';
     }
 }

@@ -16,11 +16,23 @@ public class AiDao {
     @Autowired
     private SqlSessionTemplate sqlSession;
 
-    public List<AiVo> selectList() {
-        return sqlSession.selectList("AiMapper.selectList");
+    public List<AiVo> selectList(AiVo aiVo) {
+        return sqlSession.selectList("AiMapper.selectList", aiVo);
     }
 
-    public int insert(AiDto aiDto) {
-        return sqlSession.insert("AiMapper.insert", aiDto);
+    public AiVo write(int bookId) {
+        return sqlSession.selectOne("AiMapper.write", bookId);
+    }
+
+    public int insert(AiVo aiVo) {
+        return sqlSession.insert("AiMapper.insert", aiVo);
+    }
+
+    public int update(AiVo aiVo) {
+        return sqlSession.update("AiMapper.update", aiVo);
+    }
+
+    public int delete(int bookId) {
+        return sqlSession.update("AiMapper.delete", bookId);
     }
 }
