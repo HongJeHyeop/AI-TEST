@@ -28,7 +28,7 @@ public class EmbeddingAi {
 //
 //            // 헤더 설정
 //            con.setRequestProperty("Content-Type", "application/json");
-//            con.setRequestProperty("Authorization", "Bearer sk-proj-nPp3PdTtVfM7SpucWtBNT3BlbkFJM8chhSSQUy2YiI50qa19");
+//            con.setRequestProperty("Authorization", "Bearer ");
 //
 //            // byte 변환
 //            byte[] byteTxt = txt.getBytes("UTF-8");
@@ -74,7 +74,7 @@ public class EmbeddingAi {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth("sk-proj-nPp3PdTtVfM7SpucWtBNT3BlbkFJM8chhSSQUy2YiI50qa19");
+            headers.setBearerAuth("");
 
             String url = "https://api.openai.com/v1/embeddings";
 

@@ -50,7 +50,7 @@
                       model: "text-embedding-3-small"
                     },
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", "Bearer sk-proj-nPp3PdTtVfM7SpucWtBNT3BlbkFJM8chhSSQUy2YiI50qa19");
+                        xhr.setRequestHeader("Authorization", "");
                         xhr.setRequestHeader("Content-Type", "application/json");
                     },
                     success:function (data){
